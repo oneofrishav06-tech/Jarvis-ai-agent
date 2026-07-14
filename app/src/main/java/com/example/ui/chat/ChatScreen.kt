@@ -15,6 +15,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
@@ -63,13 +64,25 @@ fun ChatScreen(
                 )
             )
         },
-        containerColor = MaterialTheme.colorScheme.background
+        containerColor = Color.Transparent
     ) { padding ->
-        Column(
+        Box(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(padding)
+                .background(
+                    Brush.verticalGradient(
+                        colors = listOf(
+                            MaterialTheme.colorScheme.background,
+                            MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.3f)
+                        )
+                    )
+                )
         ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(padding)
+            ) {
             LazyColumn(
                 modifier = Modifier
                     .weight(1f)
@@ -130,6 +143,7 @@ fun ChatScreen(
                 }
             }
         }
+        }
     }
 }
 
@@ -145,15 +159,16 @@ fun ChatBubble(message: ChatMessage) {
                 .widthIn(max = 280.dp)
                 .clip(
                     RoundedCornerShape(
-                        topStart = 16.dp,
-                        topEnd = 16.dp,
-                        bottomStart = if (isUser) 16.dp else 4.dp,
-                        bottomEnd = if (isUser) 4.dp else 16.dp
+                        topStart = 20.dp,
+                        topEnd = 20.dp,
+                        bottomStart = if (isUser) 20.dp else 4.dp,
+                        bottomEnd = if (isUser) 4.dp else 20.dp
                     )
                 )
                 .background(
-                    if (message.isError) MaterialTheme.colorScheme.error
-                    else if (isUser) BluePrimary else MaterialTheme.colorScheme.surfaceVariant
+                    if (message.isError) MaterialTheme.colorScheme.error.copy(alpha = 0.8f)
+                    else if (isUser) BluePrimary.copy(alpha = 0.8f) 
+                    else MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.6f)
                 )
                 .padding(16.dp)
         ) {

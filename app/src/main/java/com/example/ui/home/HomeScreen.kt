@@ -74,6 +74,40 @@ fun HomeScreen(
                     style = MaterialTheme.typography.bodyLarge,
                     color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.7f)
                 )
+                Spacer(modifier = Modifier.height(24.dp))
+                
+                // Suggested Prompts
+                Column(
+                    modifier = Modifier.fillMaxWidth().padding(horizontal = 32.dp),
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    val prompts = listOf(
+                        "Summarize my recent notes",
+                        "Plan a workout for today",
+                        "Write a python script to parse JSON"
+                    )
+                    prompts.forEach { prompt ->
+                        Surface(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clip(RoundedCornerShape(16.dp))
+                                .clickable { /* TODO: pass prompt to chat */ },
+                            color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f),
+                            border = androidx.compose.foundation.BorderStroke(
+                                1.dp,
+                                MaterialTheme.colorScheme.onSurface.copy(alpha = 0.1f)
+                            )
+                        ) {
+                            Text(
+                                text = prompt,
+                                modifier = Modifier.padding(16.dp),
+                                style = MaterialTheme.typography.bodyMedium,
+                                color = MaterialTheme.colorScheme.onSurface
+                            )
+                        }
+                    }
+                }
+                
                 Spacer(modifier = Modifier.height(48.dp))
                 
                 Button(
